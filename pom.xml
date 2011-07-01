@@ -17,6 +17,11 @@
   <url>https://bitbucket.org/sdorra/scm-manager</url>
   <description>Gravatar icons for the changesetviewer.</description>
 
+  <scm>
+    <connection>scm:hg:http://bitbucket.org/sdorra/scm-gravatar-plugin</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/sdorra/scm-gravatar-plugin</developerConnection>
+    <url>http://bitbucket.org/sdorra/scm-gravatar-plugin</url>
+  </scm>
 
   <repositories>
     
