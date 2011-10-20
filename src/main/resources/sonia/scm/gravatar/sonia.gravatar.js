@@ -50,7 +50,7 @@ if (Sonia.repository.ChangesetViewerGrid){
         dataIndex: 'properties',
         renderer: this.renderGravatar,
         scope: this,
-        width: this.gravatarSize + 8
+        width: this.gravatarSize + 10
       }, 0);
     },
 
