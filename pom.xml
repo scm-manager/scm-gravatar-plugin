@@ -7,7 +7,7 @@
   <parent>
     <artifactId>scm-plugins</artifactId>
     <groupId>sonia.scm.plugins</groupId>
-    <version>1.5-SNAPSHOT</version>
+    <version>1.2</version>
   </parent>
 
   <groupId>sonia.scm.plugins</groupId>
@@ -22,6 +22,26 @@
     <developerConnection>scm:hg:https://bitbucket.org/sdorra/scm-gravatar-plugin</developerConnection>
     <url>http://bitbucket.org/sdorra/scm-gravatar-plugin</url>
   </scm>
+  
+  <build>
+    <plugins>
+      
+      <plugin>
+        <groupId>sonia.scm.maven</groupId>
+        <artifactId>scm-maven-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>fix-descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+    </plugins>
+  </build>
 
   <repositories>
     
