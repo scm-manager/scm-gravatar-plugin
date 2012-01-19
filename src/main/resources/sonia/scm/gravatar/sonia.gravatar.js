@@ -39,6 +39,7 @@ if (Sonia.repository.ChangesetViewerGrid){
     gravatarSize: 32,
     gravatarNotFoundType: 'identicon',
     gravatarTemplate: '<img width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
+    gravatarSecureTemplate: '<img width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
 
     initComponent: function(){
       this.initComponentExt.apply(this, arguments);
@@ -65,8 +66,14 @@ if (Sonia.repository.ChangesetViewerGrid){
         }
       }
 
+      if ("https:" == document.location.protocol){
+        template = this.gravatarSecureTemplate;
+      } else {
+        template = this.gravatarTemplate;
+      }
+
       return String.format(
-        this.gravatarTemplate,
+        template,
         hash,
         this.gravatarSize,
         this.gravatarNotFoundType
