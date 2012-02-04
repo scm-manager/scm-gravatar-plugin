@@ -30,16 +30,46 @@
  */
 
 
+Ext.ns('Sonia.gravatar');
+
+Sonia.gravatar.Config = {
+  size: 32,
+  notFoundType: 'identicon',
+  template: '<img width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
+  secureTemplate: '<img width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">'
+}
+
+Sonia.gravatar.render = function(properties){
+  var hash = '00000000000000000000000000000000';
+  if ( properties != null ){
+    for (var i=0; i<properties.length; i++){
+      var property = properties[i];
+      if ( property.key == 'gravatar-hash' ){
+        hash = property.value;
+      }
+    }
+  }
+
+  var template = Sonia.gravatar.Config.template;
+
+  if ("https:" == document.location.protocol){
+    template = Sonia.gravatar.Config.secureTemplate;
+  }
+
+  return String.format(
+    template,
+    hash,
+    Sonia.gravatar.Config.size,
+    Sonia.gravatar.Config.notFoundType
+  );
+}
+
+
 if (Sonia.repository.ChangesetViewerGrid){
 
   Sonia.repository.ChangesetViewerGrid.prototype.initComponentExt = Sonia.repository.ChangesetViewerGrid.prototype.initComponent;
 
   Ext.override(Sonia.repository.ChangesetViewerGrid, {
-
-    gravatarSize: 32,
-    gravatarNotFoundType: 'identicon',
-    gravatarTemplate: '<img width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
-    gravatarSecureTemplate: '<img width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
 
     initComponent: function(){
       this.initComponentExt.apply(this, arguments);
@@ -49,37 +79,25 @@ if (Sonia.repository.ChangesetViewerGrid){
       this.addColumn('properties', {
         id: 'gravatar',
         dataIndex: 'properties',
-        renderer: this.renderGravatar,
+        renderer: Sonia.gravatar.render,
         scope: this,
-        width: this.gravatarSize + 10
+        width: Sonia.gravatar.Config.size + 10
       }, 0);
-    },
-
-    renderGravatar: function(properties){
-      var hash = '00000000000000000000000000000000';
-      if ( properties != null ){
-        for (var i=0; i<properties.length; i++){
-          var property = properties[i];
-          if ( property.key == 'gravatar-hash' ){
-            hash = property.value;
-          }
-        }
-      }
-
-      if ("https:" == document.location.protocol){
-        template = this.gravatarSecureTemplate;
-      } else {
-        template = this.gravatarTemplate;
-      }
-
-      return String.format(
-        template,
-        hash,
-        this.gravatarSize,
-        this.gravatarNotFoundType
-      );
     }
 
   });
 
+}
+
+// for scm-manager 1.12
+
+if (Sonia.repository.CommitPanel){
+  
+  Ext.override(Sonia.repository.CommitPanel, {
+    
+    // TODO
+    templateCommit: '' + Sonia.repository.CommitPanel.prototype.templateCommit
+    
+  });
+  
 }
