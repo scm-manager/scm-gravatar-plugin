@@ -35,8 +35,8 @@ Ext.ns('Sonia.gravatar');
 Sonia.gravatar.Config = {
   size: 32,
   notFoundType: 'identicon',
-  template: '<img width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
-  secureTemplate: '<img width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">'
+  template: '<img style="border-radius: 3px;" width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
+  secureTemplate: '<img style="border-radius: 3px;" width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">'
 }
 
 Sonia.gravatar.render = function(properties){
