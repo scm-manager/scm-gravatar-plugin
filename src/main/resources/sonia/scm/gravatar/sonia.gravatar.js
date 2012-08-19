@@ -35,11 +35,11 @@ Ext.ns('Sonia.gravatar');
 Sonia.gravatar.Config = {
   size: 32,
   notFoundType: 'identicon',
-  template: '<img style="border-radius: 3px;" width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
-  secureTemplate: '<img style="border-radius: 3px;" width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">'
+  template: '<img style="border-radius: 3px;{3}" width="{1}" height="{1}" src="http://www.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">',
+  secureTemplate: '<img style="border-radius: 3px;{3}" width="{1}" height="{1}" src="https://secure.gravatar.com/avatar/{0}?s={1}&d={2}" alt="">'
 }
 
-Sonia.gravatar.render = function(properties){
+Sonia.gravatar.render = function(properties, size, style){
   var hash = '00000000000000000000000000000000';
   if ( properties != null ){
     for (var i=0; i<properties.length; i++){
@@ -55,13 +55,22 @@ Sonia.gravatar.render = function(properties){
   if ("https:" == document.location.protocol){
     template = Sonia.gravatar.Config.secureTemplate;
   }
+  
+  if (!style){
+    style = "";
+  }
 
   return String.format(
     template,
     hash,
-    Sonia.gravatar.Config.size,
-    Sonia.gravatar.Config.notFoundType
-  );
+    size,
+    Sonia.gravatar.Config.notFoundType,
+    style
+  );  
+}
+
+Sonia.gravatar.defaultRender = function(properties){
+  return Sonia.gravatar.render(properties, Sonia.gravatar.Config.size);
 }
 
 
@@ -79,7 +88,7 @@ if (Sonia.repository.ChangesetViewerGrid){
       this.addColumn('properties', {
         id: 'gravatar',
         dataIndex: 'properties',
-        renderer: Sonia.gravatar.render,
+        renderer: Sonia.gravatar.defaultRender,
         scope: this,
         width: Sonia.gravatar.Config.size + 10
       }, 0);
@@ -89,14 +98,15 @@ if (Sonia.repository.ChangesetViewerGrid){
 
 }
 
-// for scm-manager 1.12
-
 if (Sonia.repository.CommitPanel){
   
   Ext.override(Sonia.repository.CommitPanel, {
     
-    // TODO
-    templateCommit: '' + Sonia.repository.CommitPanel.prototype.templateCommit
+    update: function(changeset){
+      changeset.leftPlaceholder = Sonia.gravatar.render(changeset.properties, 64, "margin-right: 5px; margin-bottom: 2px;");
+      this.changeset = changeset;
+      this.commitPanel.tpl.overwrite(this.commitPanel.body, this.changeset);
+    }
     
   });
   
