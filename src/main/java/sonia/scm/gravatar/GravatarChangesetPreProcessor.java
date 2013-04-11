@@ -68,15 +68,19 @@ public class GravatarChangesetPreProcessor implements ChangesetPreProcessor
     if (author != null)
     {
       String authorValue = Util.isNotEmpty(author.getMail())
-                           ? author.getMail()
-                           : author.getName();
+        ? author.getMail()
+        : author.getName();
 
-      // https://groups.google.com/forum/#!topic/scmmanager/r7oJY5dSiJ4
-      String hash = MD5Util.md5Hex(authorValue.toLowerCase());
-
-      if (Util.isNotEmpty(hash))
+      if (Util.isNotEmpty(authorValue))
       {
-        changeset.getProperties().put(PROPERTY_GRAVATARHASH, hash);
+
+        // https://groups.google.com/forum/#!topic/scmmanager/r7oJY5dSiJ4
+        String hash = MD5Util.md5Hex(authorValue.toLowerCase());
+
+        if (Util.isNotEmpty(hash))
+        {
+          changeset.getProperties().put(PROPERTY_GRAVATARHASH, hash);
+        }
       }
     }
   }
