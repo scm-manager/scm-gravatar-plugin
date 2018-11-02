@@ -22,3 +22,7 @@ Desktop DF$
 \.project
 \.classpath
 \.settings
+# idea
+.idea
+.*\.iml
+node_modules
