@@ -80,3 +80,7 @@ String getCommitAuthorEmail() {
   def matcher = getCommitAuthorComplete() =~ "<(.*?)>"
   matcher ? matcher[0][1] : ""
 }
+
+String getCommitAuthorComplete() {
+  new Sh(this).returnStdOut 'hg log --branch . --limit 1 --template "{author}"'
+}
