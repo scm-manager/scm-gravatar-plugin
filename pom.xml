@@ -15,7 +15,7 @@
   <name>scm-gravatar-plugin</name>
   <packaging>smp</packaging>
   <url>https://bitbucket.org/sdorra/scm-gravatar-plugin</url>
-  <description>Gravatar icons for the changesetviewer.</description>
+  <description>Gravatar icons for SCM-Manager</description>
 
   <scm>
     <connection>scm:hg:http://bitbucket.org/sdorra/scm-gravatar-plugin</connection>
