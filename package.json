@@ -8,6 +8,7 @@
     "build": "ui-scripts plugin",
     "watch": "ui-scripts plugin-watch",
     "typecheck": "tsc",
+    "test": "jest",
     "postinstall": "ui-plugins postinstall"
   },
   "dependencies": {
