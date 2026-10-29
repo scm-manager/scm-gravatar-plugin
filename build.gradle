@@ -22,7 +22,7 @@ dependencies {
 }
 
 scmPlugin {
-  scmVersion = "3.0.0"
+  scmVersion = "4.0.0-SNAPSHOT"
   displayName = "Gravatar"
   description = "Gravatar icons for SCM-Manager"
   author = "Cloudogu GmbH"
